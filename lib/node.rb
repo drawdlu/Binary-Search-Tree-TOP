@@ -3,12 +3,14 @@
 module BinarySearchTree
   # A node on the tree
   class Node
-    include comparable
+    include Comparable
+
+    attr_accessor :data, :left, :right
 
     def initialize(data)
       @data = data
-      @left_child = nil
-      @right_child = nil
+      @left = nil
+      @right = nil
     end
 
     def precedence
