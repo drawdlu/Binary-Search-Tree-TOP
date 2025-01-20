@@ -2,10 +2,10 @@
 
 require_relative 'lib/tree'
 
-test = BinarySearchTree::Tree.new([1, 2, 3, 4, 5, 5])
+test = BinarySearchTree::Tree.new([10, 20, 15, 5, 33, 2, 12, 19])
 
 test.pretty_print
 
-test.insert(-1)
+test.delete(19)
 
 test.pretty_print
