@@ -5,8 +5,8 @@ module BinarySearchTree
   class Node
     include comparable
 
-    def initialize
-      @data = nil
+    def initialize(data)
+      @data = data
       @left_child = nil
       @right_child = nil
     end
