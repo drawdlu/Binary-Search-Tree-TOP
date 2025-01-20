@@ -87,9 +87,15 @@ module BinarySearchTree
           node = node.left
           direction = :left
         end
+
+        return nil if node.nil?
       end
 
       [node, parent_node, direction]
+    end
+
+    def find(value)
+      find_node(@root, value).nil? ? nil : find_node(@root, value)[0]
     end
 
     def pretty_print(node = @root, prefix = '', is_left = true)
