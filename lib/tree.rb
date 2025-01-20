@@ -24,6 +24,20 @@ module BinarySearchTree
       root
     end
 
+    def insert(value, node = @root)
+      if node.data < value
+        if node.right.nil?
+          node.right = Node.new(value)
+        else
+          insert(value, node.right)
+        end
+      elsif node.left.nil?
+        node.left = Node.new(value)
+      else
+        insert(value, node.left)
+      end
+    end
+
     def pretty_print(node = @root, prefix = '', is_left = true)
       pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
       puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
