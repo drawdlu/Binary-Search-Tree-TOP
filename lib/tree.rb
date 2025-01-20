@@ -98,6 +98,26 @@ module BinarySearchTree
       find_node(@root, value).nil? ? nil : find_node(@root, value)[0]
     end
 
+    def level_order
+      queue = [@root]
+      values = []
+      until queue.empty?
+        curr_node = queue[0]
+        queue.push(curr_node.left) unless curr_node.left.nil?
+        queue.push(curr_node.right) unless curr_node.right.nil?
+
+        if block_given?
+          yield curr_node.data
+        else
+          values.push(curr_node.data)
+        end
+
+        queue.delete_at(0)
+      end
+
+      values unless block_given?
+    end
+
     def pretty_print(node = @root, prefix = '', is_left = true)
       pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
       puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
