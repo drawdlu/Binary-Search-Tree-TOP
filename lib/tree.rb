@@ -10,19 +10,19 @@ module BinarySearchTree
 
     def initialize(arr)
       list = arr.sort.uniq
-      @root = build_tree(list, 0, list.length - 1)
+      @root = build_tree(list, list.length - 1)
     end
 
-    def build_tree(list, start, last)
+    def build_tree(list, last, start = 0)
       return nil if start > last
 
       mid = start + (last - start) / 2
 
       root = Node.new(list[mid])
 
-      root.left = build_tree(list, start, mid - 1)
+      root.left = build_tree(list, mid - 1, start)
 
-      root.right = build_tree(list, mid + 1, last)
+      root.right = build_tree(list, last, mid + 1)
 
       root
     end
@@ -219,6 +219,11 @@ module BinarySearchTree
       end
 
       true
+    end
+
+    def rebalance
+      node_arr = inorder
+      @root = build_tree(node_arr, node_arr.length - 1)
     end
 
     def pretty_print(node = @root, prefix = '', is_left = true)
