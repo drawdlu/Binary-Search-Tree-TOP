@@ -5,4 +5,4 @@ require_relative 'lib/tree'
 test = BinarySearchTree::Tree.new([1, 2, 3, 4, 5])
 
 test.pretty_print
-test.postorder { |value| puts value }
+puts test.depth(test.root.right.right)

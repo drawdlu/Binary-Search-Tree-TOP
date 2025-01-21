@@ -4,7 +4,10 @@ require_relative 'node'
 
 module BinarySearchTree
   # Binary Tree
+
   class Tree
+    attr_reader :root
+
     def initialize(arr)
       list = arr.sort.uniq
       @root = build_tree(list, 0, list.length - 1)
@@ -162,6 +165,22 @@ module BinarySearchTree
       end
 
       arr
+    end
+
+    def depth(node)
+      curr_node = @root
+      height_val = 0
+      until curr_node == node || curr_node.nil?
+        height_val += 1
+
+        curr_node = if curr_node.data < node.data
+                      curr_node.right
+                    else
+                      curr_node.left
+                    end
+      end
+
+      curr_node.nil? ? nil : height_val
     end
 
     def pretty_print(node = @root, prefix = '', is_left = true)
