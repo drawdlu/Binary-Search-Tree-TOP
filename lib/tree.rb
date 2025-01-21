@@ -169,9 +169,9 @@ module BinarySearchTree
 
     def depth(node)
       curr_node = @root
-      height_val = 0
+      depth_val = 0
       until curr_node == node || curr_node.nil?
-        height_val += 1
+        depth_val += 1
 
         curr_node = if curr_node.data < node.data
                       curr_node.right
@@ -180,7 +180,27 @@ module BinarySearchTree
                     end
       end
 
-      curr_node.nil? ? nil : height_val
+      curr_node.nil? ? nil : depth_val
+    end
+
+    def height(node)
+      queue = [node]
+      height_val = 0
+
+      until queue.empty?
+        queue.length.times do
+          curr_node = queue[0]
+          queue.push(curr_node.left) unless curr_node.left.nil?
+          queue.push(curr_node.right) unless curr_node.right.nil?
+          queue.delete_at(0)
+        end
+
+        break if queue.empty?
+
+        height_val += 1
+      end
+
+      height_val
     end
 
     def pretty_print(node = @root, prefix = '', is_left = true)
