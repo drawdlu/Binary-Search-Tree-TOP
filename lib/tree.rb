@@ -203,6 +203,24 @@ module BinarySearchTree
       height_val
     end
 
+    def balanced?
+      queue = [@root]
+
+      until queue.empty?
+        curr_node = queue[0]
+        queue.push(curr_node.left) unless curr_node.left.nil?
+        queue.push(curr_node.right) unless curr_node.right.nil?
+        queue.delete_at(0)
+
+        left_height = curr_node.left.nil? ? 0 : height(curr_node.left)
+        right_height = curr_node.right.nil? ? 0 : height(curr_node.right)
+
+        return false if (left_height - right_height).abs > 1
+      end
+
+      true
+    end
+
     def pretty_print(node = @root, prefix = '', is_left = true)
       pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
       puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
