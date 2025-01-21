@@ -67,36 +67,6 @@ module BinarySearchTree
       end
     end
 
-    def find_successor(node)
-      successor = node.right
-      successor = successor.left until successor.nil? || successor.left.nil?
-
-      successor
-    end
-
-    def swap_values(node1, node2)
-      temp = node1.data
-      node1.data = node2.data
-      node2.data = temp
-    end
-
-    def find_node(node, value)
-      until node.data == value
-        parent_node = node
-        if node.data < value
-          node = node.right
-          direction = :right
-        else
-          node = node.left
-          direction = :left
-        end
-
-        return nil if node.nil?
-      end
-
-      [node, parent_node, direction]
-    end
-
     def find(value)
       find_node(@root, value).nil? ? nil : find_node(@root, value)[0]
     end
@@ -230,6 +200,38 @@ module BinarySearchTree
       pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
       puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
       pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
+    end
+
+    private
+
+    def find_successor(node)
+      successor = node.right
+      successor = successor.left until successor.nil? || successor.left.nil?
+
+      successor
+    end
+
+    def swap_values(node1, node2)
+      temp = node1.data
+      node1.data = node2.data
+      node2.data = temp
+    end
+
+    def find_node(node, value)
+      until node.data == value
+        parent_node = node
+        if node.data < value
+          node = node.right
+          direction = :right
+        else
+          node = node.left
+          direction = :left
+        end
+
+        return nil if node.nil?
+      end
+
+      [node, parent_node, direction]
     end
   end
 end
