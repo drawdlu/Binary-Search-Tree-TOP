@@ -28,14 +28,15 @@ module BinarySearchTree
     end
 
     def insert(value, node = @root)
-      if node.data < value
+      new_node = Node.new(value)
+      if node < new_node
         if node.right.nil?
-          node.right = Node.new(value)
+          node.right = new_node
         else
           insert(value, node.right)
         end
       elsif node.left.nil?
-        node.left = Node.new(value)
+        node.left = new_node
       else
         insert(value, node.left)
       end
@@ -143,7 +144,7 @@ module BinarySearchTree
       until curr_node == node || curr_node.nil?
         depth_val += 1
 
-        curr_node = if curr_node.data < node.data
+        curr_node = if curr_node < node
                       curr_node.right
                     else
                       curr_node.left
