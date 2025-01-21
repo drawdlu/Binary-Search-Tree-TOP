@@ -118,6 +118,52 @@ module BinarySearchTree
       values unless block_given?
     end
 
+    def inorder(node = @root, arr = [], &block)
+      return if node.nil?
+
+      inorder(node.left, arr, &block)
+
+      if block_given?
+        block.call(node.data)
+      else
+        arr.push(node.data)
+      end
+
+      inorder(node.right, arr, &block)
+
+      arr
+    end
+
+    def preorder(node = @root, arr = [], &block)
+      return if node.nil?
+
+      if block_given?
+        block.call(node.data)
+      else
+        arr.push(node.data)
+      end
+
+      preorder(node.left, arr, &block)
+      preorder(node.right, arr, &block)
+
+      arr
+    end
+
+    def postorder(node = @root, arr = [], &block)
+      return if node.nil?
+
+      postorder(node.left, arr, &block)
+      postorder(node.right, arr, &block)
+
+      if block_given?
+        block.call(node.data)
+      else
+        arr.push(node.data)
+      end
+
+      arr
+    end
+
     def pretty_print(node = @root, prefix = '', is_left = true)
       pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
       puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"

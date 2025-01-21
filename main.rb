@@ -2,7 +2,7 @@
 
 require_relative 'lib/tree'
 
-test = BinarySearchTree::Tree.new([10, 20, 15, 5, 33, 2, 12, 19])
+test = BinarySearchTree::Tree.new([1, 2, 3, 4, 5])
 
 test.pretty_print
-p test.level_order
+test.postorder { |value| puts value }
